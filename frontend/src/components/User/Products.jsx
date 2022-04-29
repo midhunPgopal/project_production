@@ -37,7 +37,7 @@ const Button = styled.button`
 const Products = ({ cat, offer, filters, sort, search }) => {
 
   const [products, setProducts] = useState([])
-  const [filteredProducts, setFilteredProducts] = useState([])
+  const [filteredProducts, setFilteredProducts] = useState()
   const location = useLocation()
   const value = location.pathname.split('/')[2]
 
@@ -45,15 +45,15 @@ const Products = ({ cat, offer, filters, sort, search }) => {
     try {
       if (offer && !cat) {
         const res = await axios.get(`/api/products/offer?offer=${offer}`)
-        setProducts(res.data)
+        setProducts(res.data.dt)
       }
       else if (!offer && cat) {
         const res = await axios.get(`/api/products/cat?category=${cat}`)
-        setProducts(res.data)
+        setProducts(res.data.dt)
       }
       else {
         const res = await axios.get( value ? `/api/products` : `/api/products/latest`)
-        setProducts(res.data)
+        setProducts(res.data.dt)
       }
     } catch (error) {
       console.log(error)
@@ -62,7 +62,7 @@ const Products = ({ cat, offer, filters, sort, search }) => {
   const getFilteredProducts = async () => {
     try {
       const res = await axios.get(`/api/products/cat?category=${filters}`)
-      setFilteredProducts(res.data)
+      setFilteredProducts(res.data.dt)
     } catch (error) {
       console.log(error)
     }
@@ -70,7 +70,7 @@ const Products = ({ cat, offer, filters, sort, search }) => {
   const getSearchProducts = async () => {
     try {
       const res = await axios.get(`/api/products/search?search=${search}`)
-      setFilteredProducts(res.data)
+      setFilteredProducts(res.data.dt)
     } catch (error) {
       console.log(error)
     }
@@ -105,9 +105,9 @@ const Products = ({ cat, offer, filters, sort, search }) => {
   return (
     <Main>
       <Container>
-        {filteredProducts ? filteredProducts.map(item => (
+        {filteredProducts?.map(item => (
           <Product item={item} key={item.id} />
-        )) : null }
+        )) }
       </Container>
       {!cat && !filters && <ButtonContainer>
         <Link to='/products/all' style={{ textDecoration: 'none' }}>

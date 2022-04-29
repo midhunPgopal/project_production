@@ -21,19 +21,17 @@ const Announcement = () => {
   const getAnnouncement = async () => {
     try {
       const res = await axios.get('/api/announcement')
-      const [data] = res.data
-      setAnnouncement(data)
+      setAnnouncement(res.data.dt)
     } catch (error) {
       console.log(error);
     }
   }
   useEffect(() => {
     getAnnouncement()
-  }, [])
-  
+  }, [])  
 
   return (
-    <Container>{announcement?.announcement}</Container>
+    <Container>{announcement ? announcement[0].announcement : null }</Container>
   )
 }
 

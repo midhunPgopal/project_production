@@ -48,7 +48,7 @@ router.put('/cancel/:id', verifyStatus, async (req, res) => {
 router.get('/find/:id', verifyTokenAndAdmin, async (req, res) => {
     try {
         const orders = await Order.find({_id: req.params.id})
-        res.status(200).json(orders)
+        res.status(200).json({dt: orders})
     } catch (error) {
         res.status(500).json(error)
     }
@@ -58,7 +58,7 @@ router.get('/find/:id', verifyTokenAndAdmin, async (req, res) => {
 router.get('/findusercart/:id',  verifyStatus, async (req, res) => {
     try {
         const orders = await Order.find({userId: req.params.id}).sort({createdAt: -1})
-        res.status(200).json(orders)
+        res.status(200).json({dt: orders})
     } catch (error) {
         res.status(500).json(error)
     }
@@ -69,7 +69,7 @@ router.get('/findusercart/:id',  verifyStatus, async (req, res) => {
 router.get('/', verifyTokenAndAdmin, async (req, res) => {
     try {
         const orders = await Order.find()
-        res.status(200).json(orders)
+        res.status(200).json({dt: orders})
     } catch (error) {
         res.status(500).json(error)
     }
@@ -91,7 +91,7 @@ router.post('/sales', verifyTokenAndAdmin, async (req, res) => {
         if(!result[0]) {
             return res.status(500).json({msg: 'No data found'})
         }
-        res.status(200).json(result)
+        res.status(200).json({dt: result})
     } catch (error) {
         res.status(500).json(error)
     }

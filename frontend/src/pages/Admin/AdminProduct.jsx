@@ -120,7 +120,7 @@ const AdminProduct = () => {
         const getProduct = async () => {
             try {
                 const res = await axios.get('/api/products/find/' + id)
-                setProduct(res.data)
+                setProduct(res.data.dt)
             } catch (error) {
                 console.log(error)
             }
@@ -130,7 +130,7 @@ const AdminProduct = () => {
     const getReview = async () => {
         try {
             const res = await axios.get('/api/review/' + product._id)
-            setReview(res.data)
+            setReview(res.data.dt)
         } catch (error) {
             console.log(error)
         }
@@ -168,17 +168,17 @@ const AdminProduct = () => {
                         <Filter>
                             <FilterTitle>Chapter</FilterTitle>
                             <FilterSize >
-                                {product.chapters ? product.chapters.map(chapter => (
+                                {product.chapters?.map(chapter => (
                                     <FilterSizeOption>{chapter}</FilterSizeOption>
-                                )) : null }
+                                ))}
                             </FilterSize>
                         </Filter>
                         <Filter>
                             <FilterTitle>Category</FilterTitle>
                             <FilterSize >
-                                {product.categories ? product.categories.map(category => (
+                                {product.categories?.map(category => (
                                     <FilterSizeOption>{category}</FilterSizeOption>
-                                )) : null }
+                                ))}
                             </FilterSize>
                         </Filter>
                         <Filter>
@@ -191,7 +191,7 @@ const AdminProduct = () => {
                 </InfoContainer>
             </Wrapper>
             <ReviewWrapper>
-                {review ? review.map(item => (
+                {review.map(item => (
                     <Review>
                         <>
                             <UserName><b>Name</b> : {item.name}</UserName>
@@ -200,7 +200,7 @@ const AdminProduct = () => {
                             <ButtonDelete onClick={() => reviewDelete(item._id)}>Remove</ButtonDelete>
                         </>
                     </Review>
-                )) : null}
+                ))}
             </ReviewWrapper>
             <AdminFooter />
         </Container>

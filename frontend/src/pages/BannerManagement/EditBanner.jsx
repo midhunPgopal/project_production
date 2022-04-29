@@ -32,7 +32,7 @@ const EditBanner = () => {
 
   const getBanner = async () => {
     const res = await axios.get('/api/banner/find/' + id)
-    setBanner(res.data)
+    setBanner(res.data.dt)
   }
 
   useEffect(() => {

@@ -230,7 +230,7 @@ const Cart = () => {
     const [buttonFlag, setButtonFlag] = useState(true)
     const [errCoupon, setErrCoupon] = useState()
     const [succCoupon, setSuccCoupon] = useState()
-    const [address, setAddress] = useState([])
+    const [address, setAddress] = useState()
     const [name, setName] = useState('')
     const [email, setEmail] = useState('')
     const [mobile, setMobile] = useState(0)
@@ -255,7 +255,7 @@ const Cart = () => {
     const getData = async () => {
         try {
             const response = await axios.get(`/api/preorder/` + userId, { headers: { header, userId } })
-            let [resData] = response.data
+            let [resData] = response.data.dt
             setTotalPrice(resData.grandTotal)
             setProducts(resData.products)
         } catch (error) {
@@ -266,10 +266,10 @@ const Cart = () => {
     const getUserCredentials = async () => {
         try {
             const res = await axios.get('/api/users/find/' + userId, { headers: { header } })
-            setName(res.data.name)
-            setEmail(res.data.email)
-            setMobile(res.data.mobile)
-            setWallet(res.data.wallet)
+            setName(res.data.dt.name)
+            setEmail(res.data.dt.email)
+            setMobile(res.data.dt.mobile)
+            setWallet(res.data.dt.wallet)
         } catch (error) {
             console.log(error);
         }
@@ -287,7 +287,7 @@ const Cart = () => {
     const getAddress = async () => {
         try {
             const res = await axios.get('/api/address/' + userId, { headers: { header } })
-            setAddress(res.data)
+            setAddress(res.data.dt)
         } catch (error) {
             console.log(error);
         }
@@ -389,8 +389,8 @@ const Cart = () => {
         e.preventDefault()
         try {
             const res = await axios.get('/api/coupon/check/' + coupon, { headers: { userId, totalPrice } })
-            setMaxDiscount(res.data.maximumOfffer)
-            setDiscount(res.data.discount)
+            setMaxDiscount(res.data.dt.maximumOfffer)
+            setDiscount(res.data.dt.discount)
             setButtonFlag(false)
             setSuccCoupon('Coupon applied')
         } catch (error) {
@@ -505,14 +505,14 @@ const Cart = () => {
                     </Summary>
                     <Middle>
                         <SummaryTitle>Saved Address</SummaryTitle>
-                        {address ? address.map(data => (
+                        {address?.map(data => (
                             <Address>
                                 <SummaryItemText>Address: {data.address}</SummaryItemText>
                                 <SummaryItemText>Pincode: {data.pincode}</SummaryItemText>
                                 <SummaryItemText>Landmark: {data.landmark}</SummaryItemText>
                                 <ButtonCheck onClick={() => choose(data)} >Choose</ButtonCheck>
                             </Address>
-                        )) : null }
+                        ))}
                     </Middle>
                     <End>
                         <SummaryTitle>Delivery Address</SummaryTitle>

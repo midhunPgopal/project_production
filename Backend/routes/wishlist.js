@@ -46,7 +46,7 @@ router.delete('/find/:id',  verifyStatus, async (req, res) => {
 router.get('/:id',  verifyStatus, async (req, res) => {
     try {
         const product = await Wishlist.find({ userId: req.params.id })
-        res.status(200).json(product)
+        res.status(200).json({dt: product})
     } catch (error) {
         console.log(error);
         res.status(500).json(error)

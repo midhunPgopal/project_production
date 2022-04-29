@@ -94,7 +94,7 @@ router.delete('/:id', verifyTokenAndAdmin, async (req, res) => {
 router.get('/find/:id', async (req, res) => {
     try {
         const product = await Product.findById(req.params.id)
-        res.status(200).json(product)
+        res.status(200).json({dt: product})
     } catch (error) {
         res.status(500).json(error)
     }
@@ -104,8 +104,8 @@ router.get('/find/:id', async (req, res) => {
 
 router.get('/', async (req, res) => {
     try {
-        const products = await Product.find()
-        res.status(200).json(products)
+        const product = await Product.find()
+        res.status(200).json({dt: product})
     } catch (error) {
         res.status(500).json(error)
     }
@@ -114,8 +114,8 @@ router.get('/', async (req, res) => {
 //get latest products
 router.get('/latest', async (req, res) => {
     try {
-        const products = await Product.find().sort({ createdAt: -1 }).limit(3)
-        res.status(200).json(products)
+        const product = await Product.find().sort({ createdAt: -1 }).limit(3)
+        res.status(200).json({dt: product})
     } catch (error) {
         res.status(500).json(error)
     }
@@ -124,13 +124,13 @@ router.get('/latest', async (req, res) => {
 router.get('/cat', async (req, res) => {
     const qCategory = req.query.category
     try {
-        let products
+        let product
         if (qCategory) {
-            products = await Product.find({ categories: { $in: [qCategory] } })
+            product = await Product.find({ categories: { $in: [qCategory] } })
         } else {
-            products = await Product.find()
+            product = await Product.find()
         }
-        res.status(200).json(products)
+        res.status(200).json({dt: product})
     } catch (error) {
         res.status(500).json(error)
     }
@@ -138,13 +138,13 @@ router.get('/cat', async (req, res) => {
 router.get('/offer', async (req, res) => {
     const qOffer = req.query.offer
     try {
-        let products
+        let product
         if (qOffer) {
-            products = await Product.find({ offers: { $in: [qOffer] } })
+            product = await Product.find({ offers: { $in: [qOffer] } })
         } else {
-            products = await Product.find()
+            product = await Product.find()
         }
-        res.status(200).json(products)
+        res.status(200).json({dt: product})
     } catch (error) {
         res.status(500).json(error)
     }
@@ -158,7 +158,7 @@ router.get('/search', async (req, res) => {
         } else {
             product = await Product.find()
         }
-        res.status(200).json(product)
+        res.status(200).json({dt: product})
     } catch (error) {
         res.status(500).json(error)
     }

@@ -33,8 +33,7 @@ const EditAddress = () => {
 
   const getAddress = async () => {
     const res = await axios.get('/api/address/find/' + id,)
-    console.log(res.data);
-    setAddress(res.data)
+    setAddress(res.data.dt)
   }
 
   useEffect(() => {

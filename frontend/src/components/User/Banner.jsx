@@ -100,8 +100,7 @@ const Slider = () => {
     const getBanner = async () => {
         try {
             const res = await axios.get('/api/banner')
-            setBanner(res.data)
-            console.log(res.data);
+            setBanner(res.data.dt)
         } catch (error) {
             console.log(error)
         }
@@ -116,7 +115,7 @@ const Slider = () => {
                 <ArrowLeftRoundedIcon style={{fontSize: '4vw'}} />
             </Arrow>
             <Wrapper slideIndex={slideIndex}>
-                {banner ? banner.map(item => (
+                {banner?.map((item) => (
                     <Slide bg={item.bg}>
                         <ImgContainer>
                             <Image src={item.img} />
@@ -130,7 +129,7 @@ const Slider = () => {
                             </Link>
                         </InfoContainer>
                     </Slide>
-                )): null }
+                ))}
             </Wrapper>
             <Arrow direction='right' onClick={() => handleClick('right')}>
                 <ArrowRightRoundedIcon style={{fontSize: '4vw'}} />

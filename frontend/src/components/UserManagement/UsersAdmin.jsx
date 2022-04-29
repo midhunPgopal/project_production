@@ -77,7 +77,7 @@ const UsersAdmin = () => {
 
     const navigate = useNavigate()
 
-    const [users, setUsers] = useState([])
+    const [users, setUsers] = useState()
     const [flag, setFlag] = useState(null)
 
     const notifyBlocked = () => {
@@ -93,7 +93,7 @@ const UsersAdmin = () => {
 
     const getUsers = async () => {
         const res = await axios.get('/api/users', { headers: { header } })
-        setUsers(res.data)
+        setUsers(res.data.dt)
     }
     const block = async (id) => {
         const result = await confirm('Do you want to block this user?')
@@ -171,7 +171,7 @@ const UsersAdmin = () => {
         { field: 'block', headerName: '', renderCell: blockButton, disableClickEventBubbling: true, width: 80 },
         { field: 'edit', headerName: '', renderCell: editButton, disableClickEventBubbling: true, width: 50 },
     ]
-    const rows = users ? users.map((data) => (
+    const rows = users?.map((data) => (
         {
             id: data._id,
             createdAt: dateFormat(data.createdAt, "mmmm dS, yyyy"),
@@ -181,7 +181,7 @@ const UsersAdmin = () => {
             admin: data.isAdmin,
             status: data.status
         })
-    ) : null
+    )
     useEffect(() => {
         getUsers()
     }, [flag])

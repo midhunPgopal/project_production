@@ -111,7 +111,7 @@ const Wishlist = () => {
 
     const dispatch = useDispatch()
 
-    const [resData, setResData] = useState([])
+    const [resData, setResData] = useState()
 
     const user = useSelector(state => state.user)
     const userId = user.currentUser.user._id
@@ -130,8 +130,7 @@ const Wishlist = () => {
     const getData = async () => {
         try {
             const response = await axios.get('/api/wishlist/' + userId, { headers: { header, userId } })
-            console.log(response.data)
-            setResData(response.data)
+            setResData(response.data.dt)
         } catch (error) {
             console.log(error);
             error.response.data.status && dispatch(logOut())
@@ -193,7 +192,7 @@ const Wishlist = () => {
                     <TopButton onClick={emptyWishlist}>Empty Wishlist</TopButton>
                 </Top>
                 <Bottom >
-                    {resData ? resData.map(data => (
+                    {resData?.map(data => (
                         <Container>
                             <Card>
                                 <Image src={data.product.img} />
@@ -214,7 +213,7 @@ const Wishlist = () => {
                                 </Icon>
                             </Info>
                         </Container>
-                    )) : null }
+                    ))}
                 </Bottom>
             </Wrapper>
             <Footer />

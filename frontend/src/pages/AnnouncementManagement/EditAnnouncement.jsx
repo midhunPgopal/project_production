@@ -32,7 +32,7 @@ const EditAnnouncement = () => {
 
   const getAnnouncement = async () => {
     const res = await axios.get('/api/announcement')
-    const [data] = res.data
+    const [data] = res.data.dt
     setAnnouncement(data)
   }
 

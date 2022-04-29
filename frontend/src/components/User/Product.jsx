@@ -114,7 +114,7 @@ const Product = ({ item }) => {
     const getOffer = async (data) => {
         try {
             const res = await axios.get('/api/banner/get/' + data)
-            setDiscount(res.data.discount)
+            setDiscount(res.data.dt.discount)
         } catch (error) {
             console.log(error);
         }

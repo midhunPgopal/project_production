@@ -2,7 +2,6 @@ const express = require('express')
 const app = express()
 const mongoose = require('mongoose')
 const dotenv = require('dotenv')
-var logger = require('morgan');
 const path = require('path')
 
 const authRoute = require('./routes/auth')
@@ -33,16 +32,9 @@ mongoose.connect(process.env.MONGO_URL)
     .catch(err => console.log(err))
 
 app.use(express.json())
-app.use(cors())
-app.use( bodyParser.urlencoded( { extended: false } ) )
+app.use(cors({ Credential: true, origin: true }));
+app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
-
-if (process.env.NODE_ENV === 'production') {
-    app.use(express.static(path.join(__dirname, 'build')))
-    app.get('*', function (req, res) {
-        res.sendFile(path.join(__dirname, 'build/index.html'))
-    })
-}
 
 app.use('/api/auth', authRoute)
 app.use('/api/users', userRoute)
@@ -62,4 +54,15 @@ app.use('/api/userdetails', userDetailsRoute)
 app.use('/api/coupon', couponRoute)
 app.use('/api/referal', referalRoute)
 
-app.listen(process.env.PORT || 5000, () => console.log(`Server running on ${process.env.PORT}`))
+app.listen(process.env.PORT, () => console.log(`Server running on ${process.env.PORT}`))
+
+if (process.env.NODE_ENV === 'production') {
+    app.use(express.static(path.join(__dirname, 'build')))
+    app.get('/*', (req, res) => {
+        res.sendFile(path.join(__dirname, 'build', 'index.html'));
+    })
+} else {
+    app.get('/', (req, res) => {
+        res.send('API is running....');
+    });
+}

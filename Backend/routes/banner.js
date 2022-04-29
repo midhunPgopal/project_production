@@ -16,8 +16,8 @@ const upload = multer({ storage: storage })
 
 router.get('/', verifyStatus, async (req, res) => {
     try {
-        const banner = await Banner.find()
-        res.status(200).json(banner)
+        const banner = await Banner.find({})
+        res.status(200).json({dt: banner})
     } catch (error) {
         console.log(error);
     }
@@ -26,7 +26,7 @@ router.get('/', verifyStatus, async (req, res) => {
 router.get('/find/:id', async (req, res) => {
     try {
         const banner = await Banner.findById(req.params.id)
-        res.status(200).json(banner)
+        res.status(200).json({dt: banner})
     } catch (error) {
         res.status(500).json(error)
     }
@@ -36,7 +36,7 @@ router.get('/get/:code', async (req, res) => {
     try {
         const data = await Banner.find({ offerCode: req.params.code })
         const [banner] = data
-        res.status(200).json(banner)
+        res.status(200).json({dt: banner})
     } catch (error) {
         console.log(error);
         res.status(500).json(error)

@@ -113,7 +113,7 @@ const CategoryAdmin = () => {
     const header = admin.currentAdmin.accessToken
     const navigate = useNavigate()
 
-    const [categories, setCategories] = useState([])
+    const [categories, setCategories] = useState()
     const [check, setCheck] = useState(false)
 
     const { register, handleSubmit, formState: { errors } } = useForm()
@@ -132,7 +132,7 @@ const CategoryAdmin = () => {
 
     const getCategories = async () => {
         const res = await axios.get('/api/categories')
-        setCategories(res.data)
+        setCategories(res.data.dt)
     }
     const addCategory = async (data) => {
         const formData = new FormData()
@@ -191,12 +191,12 @@ const CategoryAdmin = () => {
         { field: 'edit', headerName: '', renderCell: editButton, disableClickEventBubbling: true, width: 50 },
         { field: 'delete', headerName: '', renderCell: deleteButton, disableClickEventBubbling: true, width: 50 },
     ]
-    const rows = categories ? categories.map((data) => (
+    const rows = categories?.map((data) => (
         {
             id: data._id,
             title: data.category
         }
-    )) : null
+    ))
     useEffect(() => {
         getCategories()
     }, [])

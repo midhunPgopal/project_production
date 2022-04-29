@@ -47,11 +47,11 @@ const OrdersAdmin = () => {
     const status = admin.currentAdmin.status
     const navigate = useNavigate()
 
-    const [orders, setOrders] = useState([])
+    const [orders, setOrders] = useState()
 
     const getOrders = async () => {
         const res = await axios.get('/api/orders/', { headers: { header, status } })
-        setOrders(res.data)
+        setOrders(res.data.dt)
     }
     const editOrder = (id) => {
         navigate(`/editorder/${id}`)
@@ -81,7 +81,7 @@ const OrdersAdmin = () => {
         { field: 'status', headerName: 'Status', width: 100 },
         { field: 'update', headerName: '', renderCell: updateButton, disableClickEventBubbling: true, width: 50 },
     ]
-    const rows = orders ? orders.map((data) => (
+    const rows = orders?.map((data) => (
         {
             id: data._id,
             createdAt: dateFormat(data.createdAt, "mmmm dS, yyyy"),
@@ -92,8 +92,7 @@ const OrdersAdmin = () => {
             payment: data.payment,
             status: data.status,
         })
-    ) : null
-
+    )
     useEffect(() => {
         getOrders()
     }, [])

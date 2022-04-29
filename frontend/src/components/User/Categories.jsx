@@ -17,12 +17,12 @@ flex-direction: row;
 `
 const Categories = () => {
 
-  const [category, setCategory] = useState([])
+  const [category, setCategory] = useState()
 
   const getCategory = async () => {
     try {
       const res = await axios.get('/api/categories')
-      setCategory(res.data)
+      setCategory(res.data.dt)
     } catch (error) {
       console.log(error)
     }
@@ -35,9 +35,9 @@ const Categories = () => {
   return (
     <Container>
       <Wrapper>
-        {category ? category.map(item => (
+        {category?.map(item => (
           <CategoryItems item={item} key={item.id} />
-        )) : null }
+        ))}
       </Wrapper>
     </Container>
   )

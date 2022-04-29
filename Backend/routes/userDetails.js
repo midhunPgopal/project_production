@@ -16,7 +16,7 @@ const upload = multer({ storage: storage })
 router.get('/:id', async (req, res) => {
     try {
         const userDetails = await UserDetails.find({ userId: req.params.id })
-        res.status(200).json(userDetails)
+        res.status(200).json({dt: userDetails})
     } catch (error) {
         console.log(error)
     }
@@ -31,7 +31,6 @@ router.post('/', verifyStatus, upload.single('image'), async (req, res) => {
         dob,
         image: req.file.path
     })
-    console.log(req.body)
     try {
         await newUserDetails.save()
         res.status(200).json({ msg: 'UserDetails created' })

@@ -6,7 +6,7 @@ const verifyStatus = require('../middleware/verifyStatus')
 router.get('/', verifyStatus, async (req, res) => {
     try {
         const announcement = await Announcement.find()
-        res.status(200).json(announcement)
+        res.status(200).json({dt: announcement})
     } catch (error) {
         console.log(error);
     }

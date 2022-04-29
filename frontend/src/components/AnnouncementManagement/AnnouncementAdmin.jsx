@@ -114,7 +114,7 @@ const AnnouncementAdmin = () => {
 
     const { register, handleSubmit, formState: { errors } } = useForm()
 
-    const [announcement, setAnnouncement] = useState([])
+    const [announcement, setAnnouncement] = useState()
     const [flag, setFlag] = useState(false)
 
     const notify = (msg) => toast.success(msg, {
@@ -123,7 +123,7 @@ const AnnouncementAdmin = () => {
 
     const getAnnouncement = async () => {
         const res = await axios.get('/api/announcement/')
-        setAnnouncement(res.data)
+        setAnnouncement(res.data.dt)
     }
     const getFlag = () => {
         setFlag(true)
@@ -182,14 +182,14 @@ const AnnouncementAdmin = () => {
         { field: 'edit', headerName: '', renderCell: editButton, disableClickEventBubbling: true, width: 50 },
         { field: 'delete', headerName: '', renderCell: deleteButton, disableClickEventBubbling: true, width: 50 },
     ]
-    const rows = announcement ? announcement.map((data) => (
+    const rows = announcement?.map((data) => (
         {
             id: data._id,
             createdAt: dateFormat(data.createdAt, "mmmm dS, yyyy"),
             updatedAt: dateFormat(data.updatedAt, "mmmm dS, yyyy"),
             description: data.announcement,
         }
-    )) : null
+    ))
     useEffect(() => {
         getAnnouncement()
     }, [])

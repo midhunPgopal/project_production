@@ -51,7 +51,7 @@ const Orders = () => {
     const userId = user.currentUser.user._id
     const header = user.currentUser.accessToken
 
-    const [orders, setOrders] = useState([])
+    const [orders, setOrders] = useState()
 
     const notify = (msg) => {
         toast.success(msg, {
@@ -62,7 +62,7 @@ const Orders = () => {
     const getOrders = async () => {
         try {
             const res = await axios.get('/api/orders/findusercart/' + userId, { headers: { header, userId } })
-            setOrders(res.data)
+            setOrders(res.data.dt)
         } catch (error) {
             console.log(error)
             error.response.data.status && dispatch(logOut())
@@ -106,7 +106,7 @@ const Orders = () => {
         { field: 'status', headerName: 'Status', width: 150 },
         { field: 'cancel', headerName: '', width: 100, renderCell: cancelButton, disableClickEventBubbling: true, },
     ]
-    const rows = orders ? orders.map((data) => (
+    const rows = orders?.map((data) => (
         {
             id: data._id,
             date: dateFormat(data.createdAt, "mmmm dS, yyyy"),
@@ -116,8 +116,7 @@ const Orders = () => {
             payment: data.payment,
             status: data.status
         })
-    ) : null
-
+    )
     useEffect(() => {
         getOrders()
     }, [])

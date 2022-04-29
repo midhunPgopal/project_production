@@ -155,7 +155,7 @@ const Cart = () => {
     const userId = user.currentUser.user._id
     const header = user.currentUser.accessToken
 
-    const [resData, setResData] = useState([])
+    const [resData, setResData] = useState()
     const [subTotal, setSubTotal] = useState(0)
     const [grandTotal, setGrandTotal] = useState(0)
     const [productQuantity, setProductQuantity] = useState()
@@ -174,7 +174,7 @@ const Cart = () => {
     const getData = async () => {
         try {
             const response = await axios.get(`/api/cart/find/` + userId, { headers: { header, userId } })
-            setResData(response.data)
+            setResData(response.data.dt)
         } catch (error) {
             console.log(error)
             error.response.data.status && dispatch(logOut())
@@ -290,7 +290,7 @@ const Cart = () => {
                 <Bottom>
                     <Info>
                         <Hr />
-                        {resData ? resData.map(data => (
+                        {resData?.map(data => (
                             <>
                                 <Product key={data._id}>
                                     <ProductDetails>
@@ -333,7 +333,7 @@ const Cart = () => {
                                 </Product>
                                 <Hr />
                             </>
-                        )) : null }
+                        ))}
                     </Info>
                     <Box>
                         <Summary>

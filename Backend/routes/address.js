@@ -5,7 +5,7 @@ const verifyStatus = require('../middleware/verifyStatus')
 router.get('/:id', async (req, res) => {
     try {
         const address = await Address.find({userId: req.params.id})
-        res.status(200).json(address)
+        res.status(200).json({dt: address})
     } catch (error) {
         console.log(error)
     }
@@ -13,7 +13,7 @@ router.get('/:id', async (req, res) => {
 router.get('/find/:id', async (req, res) => {
     try {
         const address = await Address.findById(req.params.id)
-        res.status(200).json(address)
+        res.status(200).json({dt: address})
     } catch (error) {
         console.log(error)
     }

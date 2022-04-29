@@ -53,10 +53,7 @@ function App() {
         <Route path='/account' element={user ? <UserAccount /> : <Navigate to='/login' />} />
         <Route path='/editaddress/:id' element={user ? <EditAddress /> : <Navigate to='/login' />} />
         <Route path='/terms' element={<TermsOfUse /> } />
-
-        {/* Admin routes */}
-
-        <Route exact path="/admin" element={admin ? <AdminHome /> : <Navigate to='/adminlogin' />} />
+        <Route path="/admin" element={admin ? <AdminHome /> : <Navigate to='/adminlogin' />} />
         <Route path="/adminlogin" element={admin ? <Navigate to='/admin' /> : <AdminLogin />} />
         <Route path="/editproduct/:id" element={admin ? <EditProduct /> : <Navigate to='/adminlogin' />} />
         <Route path="/viewproduct/:id" element={admin ? <AdminProduct /> : <Navigate to='/adminlogin' />} />

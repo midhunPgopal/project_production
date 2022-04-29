@@ -73,8 +73,8 @@ const Navbar = () => {
     }
     const getCartItems = async () => {
         try {
-            const res = await axios.get('/api/cart/find/' + userId, { headers: {header, userId} })
-            const data = res.data.length
+            const res = await axios.get('/api/cart/find/' + userId, { headers: { userId} })
+            const data = res.data.dt.length
             dispatch(previousCart(data))
         } catch (error) {
             console.log(error)
@@ -116,7 +116,7 @@ const Navbar = () => {
                                 <MenuItem>
                                     <Badge 
                                         badgeContent={cart} 
-                                        sx={{ "& .MuiBadge-badge": { fontSize: '1vw', color: 'red', fontWeight: 'bold' } }}
+                                        sx={{ "& .MuiBadge-badge": { fontSize: '1vw', color: 'teal', fontWeight: 'bold' } }}
                                     >
                                         <ShoppingCartOutlinedIcon style={{ fontSize: '2.3vw' }} color="action" />
                                     </Badge>

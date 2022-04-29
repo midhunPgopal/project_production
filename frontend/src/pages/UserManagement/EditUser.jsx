@@ -36,7 +36,7 @@ const EditUser = () => {
 
   const getOrder = async () => {
     const res = await axios.get('/api/users/find/' + id, { headers: { header } })
-    setUser(res.data)
+    setUser(res.data.dt)
   }
 
   useEffect(() => {

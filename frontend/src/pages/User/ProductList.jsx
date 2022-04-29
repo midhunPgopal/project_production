@@ -73,13 +73,13 @@ const ProductList = () => {
 
     const [filters, setFilters] = useState({})
     const [sort, setSort] = useState('newest')
-    const [categories, setCategories] = useState([])
+    const [categories, setCategories] = useState()
     const [search, setSearch] = useState()
 
     const getCategories = async () => {
         try {
             const res = await axios.get('/api/categories')
-            setCategories(res.data)
+            setCategories(res.data.dt)
         } catch (error) {
             console.log(error)
         }
@@ -100,9 +100,9 @@ const ProductList = () => {
                     <Select onChange={e => setFilters(e.target.value)}>
                         <Option disabled >Categories</Option>
                         <Option ></Option>
-                        {categories ? categories.map(item => (
+                        {categories?.map(item => (
                             <Option>{item.category}</Option>
-                        )): null }
+                        ))}
                     </Select>
                 </Filter>
                 <Filter>

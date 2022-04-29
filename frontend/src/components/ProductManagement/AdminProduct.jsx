@@ -118,7 +118,7 @@ const AdminProduct = () => {
 
   const { register, handleSubmit, formState: { errors } } = useForm()
 
-  const [product, setProduct] = useState([])
+  const [product, setProduct] = useState()
   const [flag, setFlag] = useState(false)
 
   const notify = (msg) => toast.success(msg, {
@@ -127,7 +127,7 @@ const AdminProduct = () => {
 
   const getProducts = async () => {
     const res = await axios.get('/api/products/')
-    setProduct(res.data)
+    setProduct(res.data.dt)
   }
   const addProduct = async (data) => {
     const formData = new FormData()
@@ -216,7 +216,7 @@ const AdminProduct = () => {
     { field: 'edit', headerName: '', renderCell: editButton, disableClickEventBubbling: true, width: 50 },
     { field: 'delete', headerName: '', renderCell: deleteButton, disableClickEventBubbling: true, width: 50 },
   ]
-  const rows = product ? product.map((data) => (
+  const rows = product?.map((data) => (
     {
       id: data._id,
       createdAt: dateFormat(data.createdAt, "mmmm dS, yyyy"),
@@ -225,7 +225,7 @@ const AdminProduct = () => {
       author: data.author,
       price: data.price
     })
-  ) : null
+  )
 
   useEffect(() => {
     getProducts()

@@ -210,7 +210,7 @@ const Product = () => {
     const [quantity, setQuantity] = useState(1)
     const [chapter, setChapter] = useState(1)
     const [price, setPrice] = useState()
-    const [review, setReview] = useState([])
+    const [review, setReview] = useState()
     const [flag, setFlag] = useState(false)
     const [offer, setoffer] = useState()
     const [discount, setDiscount] = useState()
@@ -250,11 +250,11 @@ const Product = () => {
     const getProduct = async () => {
         try {
             const res = await axios.get('/api/products/find/' + id)
-            setProduct(res.data)
-            setPrice(res.data.price)
-            const [offerArray] = res.data.offers
+            setProduct(res.data.dt)
+            setPrice(res.data.dt.price)
+            const [offerArray] = res.data.dt.offers
             if (offerArray !== '') {
-                setoffer(res.data.offers)
+                setoffer(res.data.dt.offers)
             }
         } catch (error) {
             console.log(error)
@@ -264,7 +264,7 @@ const Product = () => {
     const getReview = async () => {
         try {
             const res = await axios.get('/api/review/' + product._id)
-            setReview(res.data)
+            setReview(res.data.dt)
         } catch (error) {
             console.log(error)
         }
@@ -284,7 +284,7 @@ const Product = () => {
     const getOffer = async () => {
         try {
             const res = await axios.get('/api/banner/get/' + offer)
-            setDiscount(res.data.discount)
+            setDiscount(res.data.dt.discount)
         } catch (error) {
             console.log(error);
         }
@@ -316,7 +316,7 @@ const Product = () => {
                     <Title>{product.title}</Title>
                     <Description>{product.description}</Description>
                     <Description>Author : <b>{product.author}</b></Description>
-                    <Description>Category : <b>{product.categories ? product.categories.map(category => category + ' ,') : null }</b></Description>
+                    <Description>Category : <b>{product.categories?.map(category => category + ' ,')}</b></Description>
                     <Description>Published by <b>{product.publisher}</b> on {dateFormat(product.publishedAt, "mmmm dS, yyyy")}</Description>
                     {!offer &&
                         <Price>₹ {product.price}</Price>
@@ -331,9 +331,9 @@ const Product = () => {
                         <Filter>
                             <FilterTitle>Chapter</FilterTitle>
                             <FilterSize onChange={(e) => setChapter(e.target.value)}>
-                                {product.chapters ? product.chapters.map(chapter => (
+                                {product.chapters?.map(chapter => (
                                     <FilterSizeOption>{chapter}</FilterSizeOption>
-                                )) : null }
+                                ))}
                             </FilterSize>
                         </Filter>
                     </FilterContainer>
@@ -373,7 +373,7 @@ const Product = () => {
                 </Form>
             }
             <ReviewWrapper>
-                {review ? review.map(item => (
+                {review?.map(item => (
                     <Review>
                         <>
                             <UserName><b>Name</b> : {item.name}</UserName>
@@ -381,7 +381,7 @@ const Product = () => {
                             <Details><b>Review</b> : {item.details}</Details>
                         </>
                     </Review>
-                )) : null }
+                ))}
             </ReviewWrapper>
             <Newsletter />
             <Footer />

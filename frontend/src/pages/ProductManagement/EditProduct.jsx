@@ -31,7 +31,7 @@ const EditProduct = () => {
 
   const getProduct = async () => {
     const res = await axios.get('/api/products/find/' + id)
-    let { author, categories, chapters, description, img, offers, price, publishedAt, publisher, title } = res.data
+    let { author, categories, chapters, description, img, offers, price, publishedAt, publisher, title } = res.data.dt
     const category = categories?.toString()
     const chapter = chapters?.toString()
     const offer = offers?.toString()

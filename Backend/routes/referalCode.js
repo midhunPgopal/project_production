@@ -4,7 +4,7 @@ const ReferralCode = require('../models/ReferralCode')
 router.get('/:id', async (req, res) => {
     try {
         const referal = await ReferralCode.findOne({referalCode: req.params.id})
-        res.status(200).json(referal)
+        res.status(200).json({dt: referal})
     } catch (error) {
         console.log(error);
     }
@@ -12,7 +12,7 @@ router.get('/:id', async (req, res) => {
 router.get('/find/:id', async (req, res) => {
     try {
         const referal = await ReferralCode.findOne({username: req.params.id})
-        res.status(200).json(referal)
+        res.status(200).json({dt: referal})
     } catch (error) {
         console.log(error);
     }

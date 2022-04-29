@@ -33,7 +33,7 @@ router.post('/', verifyTokenAndAdmin, upload.single('img'), async (req, res) => 
 router.get('/', async (req, res) => {
     try {
         const category = await Category.find()
-        res.status(200).json(category)
+        res.status(200).json({dt: category})
     } catch (error) {
         res.status(500).json(error)
     }
@@ -42,7 +42,7 @@ router.get('/', async (req, res) => {
 router.get('/find/:id', async (req, res) => {
     try {
         const category = await Category.findById(req.params.id)
-        res.status(200).json(category)
+        res.status(200).json({dt: category})
     } catch (error) {
         res.status(500).json(error)
     }

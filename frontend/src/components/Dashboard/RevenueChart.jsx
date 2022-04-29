@@ -15,7 +15,7 @@ const RevenueChart = () => {
 
   const getData = async () => {
     const res = await axios.get('/api/orders', { headers: { header } })
-    setOrders(res.data)
+    setOrders(res.data.dt)
   }
   const getValues = () => {
     let total = 0

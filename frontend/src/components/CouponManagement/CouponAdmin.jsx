@@ -118,7 +118,7 @@ const CategoryAdmin = () => {
     const header = admin.currentAdmin.accessToken
     const navigate = useNavigate()
 
-    const [coupon, setCoupon] = useState([])
+    const [coupon, setCoupon] = useState()
     const [check, setCheck] = useState(false)
 
     const { register, handleSubmit, formState: { errors } } = useForm()
@@ -133,7 +133,7 @@ const CategoryAdmin = () => {
 
     const getCoupon = async () => {
         const res = await axios.get('/api/coupon')
-        setCoupon(res.data)
+        setCoupon(res.data.dt)
     }
     const addCoupon = async (data) => {
         const res = await axios.post('/api/coupon/', data, { headers: { header } })
@@ -192,7 +192,7 @@ const CategoryAdmin = () => {
         { field: 'edit', headerName: '', renderCell: editButton, disableClickEventBubbling: true, width: 50 },
         { field: 'delete', headerName: '', renderCell: deleteButton, disableClickEventBubbling: true, width: 50 },
     ]
-    const rows = coupon ? coupon.map((data) => (
+    const rows = coupon?.map((data) => (
         {
             id: data._id,
             code: data.couponCode,
@@ -201,7 +201,7 @@ const CategoryAdmin = () => {
             expiry: dateFormat(data.expiry, "mmmm dS, yyyy"),
             minimum: data.minimumAmount
         })
-    ) : null
+    )
 
     useEffect(() => {
         getCoupon()

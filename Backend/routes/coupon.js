@@ -15,7 +15,7 @@ router.post('/', verifyTokenAndAdmin, async (req, res) => {
 router.get('/', async (req, res) => {
     try {
         const coupon = await Coupon.find()
-        res.status(200).json(coupon)
+        res.status(200).json({dt: coupon})
     } catch (error) {
         res.status(500).json(error)
     }
@@ -24,7 +24,7 @@ router.get('/', async (req, res) => {
 router.get('/find/:id', async (req, res) => {
     try {
         const coupon = await Coupon.findById(req.params.id)
-        res.status(200).json(coupon)
+        res.status(200).json({dt: coupon})
     } catch (error) {
         res.status(500).json(error)
     }
@@ -48,7 +48,7 @@ router.get('/check/:id', async (req, res) => {
         if(price < coupon.minimumAmount) {
             return res.status(500).json({coupon:`Minimum amuount of ${coupon.minimumAmount} required`})
         }
-        res.status(200).json(coupon)
+        res.status(200).json({dt: coupon})
     } catch (error) {
         res.status(500).json(error)
     }

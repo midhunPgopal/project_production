@@ -6,7 +6,7 @@ const verifyStatus = require('../middleware/verifyStatus')
 router.get('/:id', async (req, res) => {
     try {
         const review = await Review.find({productId: req.params.id})
-        res.status(200).json(review)
+        res.status(200).json({dt: review})
     } catch (error) {
         console.log(error);
     }

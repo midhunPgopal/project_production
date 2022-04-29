@@ -91,7 +91,7 @@ const SalesAdmin = () => {
     try {
       let value = []
       const res = await axios.get('/api/orders', { headers: { header } })
-      res.data?.filter(item => {
+      res.data.dt?.filter(item => {
         if (item.status === 'Delivered') {
           value.push(item)
         }
@@ -124,7 +124,7 @@ const SalesAdmin = () => {
     { field: 'payment', headerName: 'Payment', width: 160 },
     { field: 'status', headerName: 'Status', width: 100 }
   ]
-  const rows = orders ? orders.map((data) => (
+  const rows = orders?.map((data) => (
     {
       id: data._id,
       createdAt: dateFormat(data.createdAt, "mmmm dS, yyyy"),
@@ -134,7 +134,7 @@ const SalesAdmin = () => {
       payment: data.payment,
       status: data.status,
     })
-  ) : null
+  )
 
   useEffect(() => {
     getOrders()

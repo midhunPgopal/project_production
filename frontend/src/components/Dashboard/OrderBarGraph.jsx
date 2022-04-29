@@ -9,7 +9,7 @@ const OrderBarGraph = () => {
     const admin = useSelector(state => state.admin)
     const header = admin.currentAdmin.accessToken
 
-    const [users, setUsers] = useState([])
+    const [users, setUsers] = useState()
     const [userValue, setuserValue] = useState()
     const [orders, setOrders] = useState()
     const [orderValue, setOrderValue] = useState()
@@ -17,13 +17,13 @@ const OrderBarGraph = () => {
     const getData = async () => {
         const res = await axios.get('/api/users', { headers: { header } })
         const ress = await axios.get('/api/orders', { headers: { header } })
-        setUsers(res.data)
-        setOrders(ress.data)
+        setUsers(res.data.dt)
+        setOrders(ress.data.dt)
     }
     const getProducts = () => {
         let data = []
         let names = []
-        users.map(item => (
+        users?.map(item => (
             data.push(item._id),
             names.push(item.name)
         ))
@@ -38,7 +38,6 @@ const OrderBarGraph = () => {
             })
         }
         setOrderValue(count)
-        console.log(count, names);
         setuserValue(names)
     }
 

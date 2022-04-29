@@ -52,12 +52,12 @@ const PaymentForm = () => {
   if (user) {
     userId = user.user._id
   }
-  const [detail, setDetails] = useState([])
+  const [detail, setDetails] = useState()
 
   const getOrders = async () => {
     try {
       const res = await axios.get('/api/orders/findusercart/' + userId, { headers: { userId } })
-      const data = res.data
+      const data = res.data.dt
       setDetails(data[0].products)
     } catch (error) {
       console.log(error)
@@ -73,11 +73,11 @@ const PaymentForm = () => {
     <Container>
       <Title>Order Successfull..!!</Title>
       <ImageContainer>
-        {detail ? detail.map(item => (
+        {detail?.map(item => (
           <Card>
             <Image src={item.product.img}></Image>
           </Card>
-        )) : null }
+        ))}
       </ImageContainer>
     </Container>
   )

@@ -114,7 +114,7 @@ const BannerAdmin = () => {
 
     const { register, handleSubmit, formState: { errors } } = useForm()
 
-    const [banner, setBanner] = useState([])
+    const [banner, setBanner] = useState()
     const [flag, setFlag] = useState(false)
 
     const notify = (msg) => toast.success(msg, {
@@ -123,7 +123,7 @@ const BannerAdmin = () => {
 
     const getBanner = async () => {
         const res = await axios.get('/api/banner/')
-        setBanner(res.data)
+        setBanner(res.data.dt)
     }
     const getFlag = () => {
         setFlag(true)
@@ -191,14 +191,14 @@ const BannerAdmin = () => {
         { field: 'edit', headerName: '', renderCell: editButton, disableClickEventBubbling: true, width: 50 },
         { field: 'delete', headerName: '', renderCell: deleteButton, disableClickEventBubbling: true, width: 50 },
     ]
-    const rows = banner ? banner.map((data) => (
+    const rows = banner?.map((data) => (
         {
             id: data._id,
             title: data.title,
             description: data.description,
             offer: data.offerDescription
         }
-    )) : null
+    ))
     useEffect(() => {
         getBanner()
     }, [])

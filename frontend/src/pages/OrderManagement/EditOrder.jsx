@@ -36,7 +36,7 @@ const EditOrder = () => {
 
   const getOrder = async () => {
     const res = await axios.get('/api/orders/find/' + id, {headers: {header}})
-    const [values] = res.data
+    const [values] = res.data.dt
     let {deliveryAddress, status} = values
     let { name, mobile, email, pincode, address} = deliveryAddress
     const data = {name, mobile, email, pincode, address, status}

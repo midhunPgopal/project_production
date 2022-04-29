@@ -15,7 +15,7 @@ const UserChart = () => {
 
   const getData = async () => {
     const res = await axios.get('/api/users', { headers: { header } })
-    setUsers(res.data)
+    setUsers(res.data.dt)
   }
   const getValues = () => {
     let block = 0

@@ -32,7 +32,7 @@ const EditCategory = () => {
 
   const getCategory = async () => {
     const res = await axios.get('/api/categories/find/' + id)
-    let {category, img} = res.data
+    let {category, img} = res.data.dt
     const data = {category, img}
     setCategory(data)
   }

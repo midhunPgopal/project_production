@@ -170,7 +170,7 @@ function UserDetails() {
     const [data, setData] = useState(false)
     const [detailsFlag, setDetailsFlag] = useState(false)
     const [credentialsFlag, setCredentialsFlag] = useState(false)
-    const [address, setAddress] = useState([])
+    const [address, setAddress] = useState()
     const [userData, setUserData] = useState()
     const [userCredentials, setUserCredentials] = useState()
     const [username, setUsername] = useState()
@@ -186,8 +186,7 @@ function UserDetails() {
     const getUserDetails = async () => {
         try {
             const res = await axios.get('/api/userDetails/' + userId, { headers: { header } })
-            const [userDetail] = res.data
-            console.log(userDetail);
+            const [userDetail] = res.data.dt
             setUserData(userDetail)
             if (res.data.length > 0) {
                 setCheck(true)
@@ -199,7 +198,7 @@ function UserDetails() {
     const getUserCredentials = async () => {
         try {
             const res = await axios.get('/api/users/find/' + userId, { headers: { header } })
-            setUserCredentials(res.data)
+            setUserCredentials(res.data.dt)
             setUsername(res.data.username)
         } catch (error) {
             console.log(error);
@@ -208,7 +207,7 @@ function UserDetails() {
     const getReferalCode = async () => {
         try {
             const res = await axios.get('/api/referal/find/' + username)
-            setReferal(res.data)
+            setReferal(res.data.dt)
         } catch (error) {
             console.log(error);
         }
@@ -216,7 +215,7 @@ function UserDetails() {
     const getAddress = async () => {
         try {
             const res = await axios.get('/api/address/' + userId, { headers: { header } })
-            setAddress(res.data)
+            setAddress(res.data.dt)
         } catch (error) {
             console.log(error);
         }
@@ -424,7 +423,7 @@ function UserDetails() {
                     <Referal>Referal code : <b>{referal && referal.referalCode}</b></Referal>
                 </Details>
                 <Address>
-                    {address ? address.map(data => (
+                    {address?.map(data => (
                         <Container key={data._id}>
                             <FullAddress>Address : {data.fullAddress}</FullAddress>
                             <Pincode>Pincode : {data.pincode}</Pincode>
@@ -445,7 +444,7 @@ function UserDetails() {
                                 </Tooltip>
                             </Icons>
                         </Container>
-                    )) : null }
+                    ))}
                 </Address>
             </Content>
         </>
