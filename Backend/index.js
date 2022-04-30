@@ -3,8 +3,6 @@ const app = express()
 const mongoose = require('mongoose')
 const dotenv = require('dotenv')
 const path = require('path')
-var util= require('util')
-var encoder = new util.TextEncoder('utf-8')
 
 const authRoute = require('./routes/auth')
 const userRoute = require('./routes/user')
@@ -37,7 +35,6 @@ app.use(express.json())
 app.use(cors({ Credential: true, origin: true }));
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
-
 
 app.use('/api/auth', authRoute)
 app.use('/api/users', userRoute)
