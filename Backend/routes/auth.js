@@ -7,11 +7,11 @@ const dotenv = require('dotenv')
 
 dotenv.config()
 
-const serviceSID = process.env.serviceSID
-const accountSId = process.env.accountSID
-const authToken = process.env.authToken
+const serviceSID = process.env.TWILIO_SERVICE_SID
+const accountSID = process.env.TWILIO_ACCOUNT_SID
+const authToken = process.env.TWILIO_TOKEN 
 
-const client = require('twilio')(accountSId, authToken)
+const client = require('twilio')(accountSID, authToken)
 
 //for register
 
@@ -123,11 +123,11 @@ router.post('/otpverify', async (req, res) => {
             to: `+91${mobile}`,
             code: otp
         }).then(resp => {
-            if (res.status === 'approved') {
-                res.status(200).json({ user, accessToken })
+            if (resp.status === 'approved') {
+                return res.status(200).json({ user, accessToken })
             }
             else {
-                res.status(401).json({ msg: 'Token not validated' })
+                return res.status(401).json({ msg: 'Token not validated' })
             }
         }).catch(err => console.log(err))
 })

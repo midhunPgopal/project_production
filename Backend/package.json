@@ -24,7 +24,7 @@
     "razorpay": "^2.8.1",
     "shortid": "^2.2.16",
     "stripe": "^8.210.0",
-    "twilio": "^3.76.0"
+    "twilio": "^3.76.1"
   },
   "devDependencies": {
     "nodemon": "^2.0.15"
