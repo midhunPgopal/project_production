@@ -45,6 +45,7 @@ const Select = styled.select`
 `
 const Option = styled.option`
     font-size: 1.4vw;
+    text-transform: capitalize;
 `
 const SearchContainer = styled.div`
     display: flex;
@@ -99,7 +100,7 @@ const ProductList = () => {
                     <FilterText>Filter Products</FilterText>
                     <Select onChange={e => setFilters(e.target.value)}>
                         <Option disabled >Categories</Option>
-                        <Option ></Option>
+                        <Option >all</Option>
                         {categories?.map(item => (
                             <Option>{item.category}</Option>
                         ))}

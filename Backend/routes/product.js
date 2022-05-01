@@ -125,9 +125,9 @@ router.get('/cat', async (req, res) => {
     const qCategory = req.query.category
     try {
         let product
-        if (qCategory) {
+        if (qCategory && qCategory !== 'all' ) {
             product = await Product.find({ categories: { $in: [qCategory] } })
-        } else {
+        } else if (!qCategory || qCategory === 'all' ) {
             product = await Product.find()
         }
         res.status(200).json({dt: product})
