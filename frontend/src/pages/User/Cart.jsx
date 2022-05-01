@@ -17,7 +17,8 @@ import axios from 'axios'
 import { confirm } from "react-confirm-box"
 import Tooltip from '@mui/material/Tooltip'
 
-const Container = styled.div``
+const Container = styled.div`
+`
 const Wrapper = styled.div`
     padding: 1vw;
 `
@@ -46,8 +47,9 @@ const TopButton = styled.button`
 `
 const Bottom = styled.div`
     display: flex;
-    justify-content: space-between;
+    flex-direction: row;
     margin: 1vw 1.2vw;
+    ${mobile({ flexDirection: 'column' })}
 `
 const Info = styled.div`
     flex: 3;

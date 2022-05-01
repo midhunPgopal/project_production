@@ -9,6 +9,7 @@ import { toast } from "react-toastify";
 import { logOut } from "../../redux/userRedux"
 import { addCart } from "../../redux/cartRedux";
 import { useEffect, useState } from "react";
+import { mobile } from "../../responsive";
 
 const Info = styled.div`
     opacity: 0;
@@ -62,10 +63,12 @@ const Title = styled.span`
     font-size: 1.5vw;
     font-weight: 500;
     color: teal;
+    ${mobile({ fontSize: '2vw' })}
 `
 const Price = styled.span`
     font-size: 1.4vw;
     color: teal;
+    ${mobile({ fontSize: '1.9vw' })}
 `
 const Icon = styled.div`
     width: 3vw;
@@ -82,6 +85,7 @@ const Icon = styled.div`
     &:hover{
         transform: scale(1.5);
     }
+    ${mobile({ margin: '2vw' })}
 `
 toast.configure()
 const Product = ({ item }) => {

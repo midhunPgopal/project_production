@@ -12,6 +12,7 @@ const Container = styled.div`
     align-items: center;
     font-size: 1.1vw;
     font weight: 500;
+    ${mobile({ fontSize: '2vw', height: '3.5vw' })}
 `
 
 const Announcement = () => {

@@ -7,6 +7,7 @@ const Container = styled.div`
     height: 20vw;
     width: 25vw;
     position: relative;
+    ${mobile({ height: '30vw', width: '40vw' })}
 `
 const Image = styled.img`
     width: 100%;
@@ -29,6 +30,7 @@ const Title = styled.h1`
     font-size: 2.3vw;
     margin-bottom: 1vw;
     text-transform: capitalize;
+    ${mobile({ fontSize: '3vw' })}
 `
 const Button = styled.button`
     border: none;
@@ -38,6 +40,7 @@ const Button = styled.button`
     cursor: pointer;
     font-size: 1vw;
     font-weight: 600;
+    ${mobile({ fontSize: '2vw' })}
 `
 const CategoryItems = ({ item }) => {
     return (

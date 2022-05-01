@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react'
 import styled from 'styled-components'
-import { mobile } from '../../responsive'
 import { Link } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { loginStart, loginSuccess, loginFailure } from '../../redux/userRedux'
@@ -21,13 +20,12 @@ const Container = styled.div`
     background-size: cover;
 `
 const Wrapper = styled.div`
-    width: 35%;
-    padding: 20px;
+    width: 50vw;
+    padding: 1.2vw;
     background-color: white;
-    ${mobile({ width: '75%' })}
 `
 const Title = styled.h1`
-    font-size: 24px;
+    font-size: 2.5vw;
     font-weight: 300;
     text-align: center;
 `
@@ -38,9 +36,9 @@ const Form = styled.form`
 `
 const Input = styled.input`
     flex: 1;
-    min-width: 40%;
-    margin: 10px 0;
-    padding: 10px;
+    margin: 1vw 0;
+    padding: 1vw;
+    font-size: 1.4vw;
 `
 const Bottom = styled.div`
     display: flex;
@@ -48,37 +46,42 @@ const Bottom = styled.div`
     flex-direction: column;
 `
 const Button = styled.button`
-    width: 20%;
+    width: 20vw;
     border: none;
-    padding: 5px;
+    padding: 1vw 0.5vw;
     background-color: teal;
     color: white;
     cursor: pointer;
-    margin-bottom: 10px;
+    margin-bottom: 1vw;
+    font-size: 1.4vw;
 
-    &:disabled {
-        color: grey;
-        cursor: not-allowed;
+    &:hover {
+        color: teal;
+        background-color: white;
+        border: 0.1px solid teal;
     }
 `
 const Error = styled.span`
-    font-size: 18px;
-    padding: 5px 10px;
+    font-size: 1.1vw;
+    padding: 5px;
     color: #f16969;
 `
 const Extra = styled.div`
     display: flex;
     justify-content: space-between;
     cursor: pointer;
-`
-const Timer = styled.h1`
-    color: green;
-    font-size: 20px;
-    align-iems: center;
+    font-size: 1.2vw;
 `
 const Label = styled.label`
     font-weight: bolder;
     color: #1517165b;
+    font-size: 1.2vw;
+`
+const Timer = styled.h1`
+    color: green;
+    font-size: 1.4vw;
+    font-weight: 300;
+    align-iems: center;
 `
 toast.configure()
 const OtpLogin = () => {

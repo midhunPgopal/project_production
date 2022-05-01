@@ -19,11 +19,13 @@ const Container = styled.div`
 const Title = styled.h1`
     font-size: 4.5vw;
     margin-bottom: 1vw;
+    ${mobile({ fontSize: '6vw' })}
 `
 const Description = styled.div`
     font-size: 1.8vw;
     font-weight: 300;
     margin-bottom: 2vw;
+    ${mobile({ fontSize: '2vw' })}
 `
 const Form = styled.form`
     width: 50%;

@@ -5,22 +5,27 @@ import { mobile } from '../../responsive'
 import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { logOut } from '../../redux/userRedux'
-import  { previousCart } from '../../redux/cartRedux'
+import { previousCart } from '../../redux/cartRedux'
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { confirm } from "react-confirm-box"
 import axios from 'axios';
 import { useEffect } from 'react';
 
-
 const Container = styled.div`
     height: 6vw;
+    ${mobile({ height: '10vw' })}
 `
 const Wrapper = styled.div`
     padding: 0.9vw 1.9vw 0vw 0.9vw;
     display: flex;
     justify-content: space-between;
     align-items: center;
+`
+const Title = styled.div`
+    font-size: 1.3vw;
+    margin-left: 2vw;
+    ${mobile({ fontSize: '2vw' })}
 `
 const Left = styled.div`
     flex: 1;
@@ -30,6 +35,7 @@ const Left = styled.div`
 const Language = styled.span`
     font-size: 1.1vw;
     cursor: pointer;
+    ${mobile({ fontSize: '2vw' })}
 `
 const Right = styled.div`
     flex: 1;
@@ -42,10 +48,6 @@ const MenuItem = styled.div`
     cursor: pointer;
     margin-left: 2vw;
 `
-const Title = styled.div`
-    font-size: 1.3vw;
-    margin-left: 2vw;
-`
 const Center = styled.div`
     flex: 1;
     text-align: center;
@@ -53,6 +55,7 @@ const Center = styled.div`
 const Logo = styled.h1`
     font-weight: bold;
     font-size: 2.8vw;
+    ${mobile({ fontSize: '5vw' })}
 `
 toast.configure()
 const Navbar = () => {
@@ -62,7 +65,7 @@ const Navbar = () => {
     const cart = useSelector((state) => state.cart.currentCart)
     let userId = null
     let header = null
-    if (user) { 
+    if (user) {
         userId = user.user._id
         header = user.accessToken
     }
@@ -73,7 +76,7 @@ const Navbar = () => {
     }
     const getCartItems = async () => {
         try {
-            const res = await axios.get('/api/cart/find/' + userId, { headers: { userId} })
+            const res = await axios.get('/api/cart/find/' + userId, { headers: { userId } })
             const data = res.data.dt.length
             dispatch(previousCart(data))
         } catch (error) {
@@ -91,7 +94,7 @@ const Navbar = () => {
         }
     }
     useEffect(() => {
-        if(user) {
+        if (user) {
             getCartItems()
         }
     }, [])
@@ -104,7 +107,7 @@ const Navbar = () => {
                         <Language>EN</Language>
                     </Left>
                     <Center>
-                        <Link to='/' style={{textDecoration: 'none'}} >
+                        <Link to='/' style={{ textDecoration: 'none' }} >
                             <Logo>Reader Club©</Logo>
                         </Link>
                     </Center>
@@ -112,10 +115,10 @@ const Navbar = () => {
                         {user ? <>
                             <Title >Welcome <b style={{ textTransform: 'uppercase', color: 'teal' }}>{user.user.name}</b></Title>
                             <MenuItem onClick={handleClick}>LOGOUT</MenuItem>
-                            <Link to='/cart' style={{textDecoration: 'none'}}>
+                            <Link to='/cart' style={{ textDecoration: 'none' }}>
                                 <MenuItem>
-                                    <Badge 
-                                        badgeContent={cart} 
+                                    <Badge
+                                        badgeContent={cart}
                                         sx={{ "& .MuiBadge-badge": { fontSize: '1vw', color: 'teal', fontWeight: 'bold' } }}
                                     >
                                         <ShoppingCartOutlinedIcon style={{ fontSize: '2.3vw' }} color="action" />
@@ -134,7 +137,7 @@ const Navbar = () => {
                     </Right>
                 </Wrapper>
             </Container>
-        </div>
+        </div >
     )
 }
 

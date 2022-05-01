@@ -3,6 +3,7 @@ import Product from "./Product"
 import { useEffect, useState } from "react"
 import axios from 'axios'
 import { Link, useLocation } from "react-router-dom"
+import { mobile } from "../../responsive"
 
 const Main = styled.div`
   display: flex;
@@ -13,6 +14,7 @@ const Container = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
+  ${mobile({ padding: '0' })}
 `
 const ButtonContainer = styled.div`
   display: flex;
@@ -32,6 +34,7 @@ const Button = styled.button`
   &:hover {
     background-color: #26e090fe;
   }
+  ${mobile({ fontSize: '2vw' })}
 `
 
 const Products = ({ cat, offer, filters, sort, search }) => {

@@ -2,13 +2,13 @@ import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
-import { mobile } from '../../responsive'
 import ErrorNotice from '../../error/ErrorNotice'
 import { loginStart, loginSuccess, loginFailure } from '../../redux/userRedux'
 import { useForm } from 'react-hook-form'
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios'
+import VisibilityIcon from '@mui/icons-material/Visibility'
 
 const Container = styled.div`
     width: 100vw;
@@ -21,14 +21,12 @@ const Container = styled.div`
     background-size: cover;
 `
 const Wrapper = styled.div`
-    width: 35%;
-    padding: 20px;
+    width: 50vw;
+    padding: 1.2vw;
     background-color: white;
-    display
-    ${mobile({ width: '75%' })}
 `
 const Title = styled.h1`
-    font-size: 24px;
+    font-size: 2.5vw;
     font-weight: 300;
     text-align: center;
 `
@@ -38,10 +36,19 @@ const Form = styled.form`
     flex-direction: column;
 `
 const Input = styled.input`
-    flex: 1;
-    min-width: 40%;
-    margin: 10px 0;
-    padding: 10px;
+    padding: 1vw;
+    font-size: 1.4vw;
+    width: 100%;
+`
+const InputGroup = styled.div`
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+`
+const PasswordInput = styled.div`
+    display: flex;
+    flex-direction: row;
+    align-items: center;
 `
 const Bottom = styled.div`
     display: flex;
@@ -49,27 +56,30 @@ const Bottom = styled.div`
     flex-direction: column;
 `
 const Button = styled.button`
-    width: 30%;
+    width: 20vw;
     border: none;
-    padding: 10px 5px;
+    padding: 1vw 0.5vw;
     background-color: teal;
     color: white;
     cursor: pointer;
-    margin-bottom: 10px;
+    margin-bottom: 1vw;
+    font-size: 1.4vw;
+    margin-top: 3vw;
 
-    &:disabled {
-        color: green;
-        cursor: not-allowed;
+    &:hover {
+        color: teal;
+        background-color: white;
+        border: 0.1px solid teal;
     }
 `
-const Links = styled.a`
-    margin: 5px 0px;
-    font-size: 18px;
+const Links = styled.span`
+    margin: 0.5vw 0;
+    font-size: 1.2vw;
     text-decoration: underline;
     cursor: pointer;
 `
 const Error = styled.span`
-    font-size: 18px;
+    font-size: 1.1vw;
     padding: 5px;
     color: #f16969;
 `
@@ -77,19 +87,25 @@ const Extra = styled.div`
     display: flex;
     justify-content: space-between;
     cursor: pointer;
+    font-size: 1.5vw;
 `
 const Label = styled.label`
     font-weight: bolder;
     color: #1517165b;
+    font-size: 1.2vw;
+    display: flex;
+    flex-direction: column;
+    margin: 0 2vw 0 2vw;
 `
 toast.configure()
 const Login = () => {
     const dispatch = useDispatch()
 
     const { register, handleSubmit, formState: { errors } } = useForm()
-    
+
     const [errUser, setErrUser] = useState()
     const [errPassword, setErrPassword] = useState()
+    const [passShow, setPassShow] = useState(false)
 
     const notify = () => toast.success('Now you can order', {
         position: "top-right", autoClose: 1000, hideProgressBar: false, closeOnClick: true, pauseOnHover: true, draggable: true, progress: undefined,
@@ -126,18 +142,30 @@ const Login = () => {
                 </Extra>
                 <Title>Login to your Account</Title>
                 <Form onSubmit={handleSubmit(onSubmit)}>
-                    <Label>Username</Label>
-                    <Input id="username" placeholder='Username' {...register('username', { required: true })} />
-                    <Error>
-                        {errors.username && errors.username.type === "required" && <span>This is required</span>}
-                        {errUser && <ErrorNotice message={errUser} />}
-                    </Error>
-                    <Label>Password</Label>
-                    <Input id="password" type='password' placeholder='Password' {...register('password', { required: true })} />
-                    <Error>
-                        {errors.password && errors.password.type === "required" && <span>This is required</span>}
-                        {errPassword && <ErrorNotice message={errPassword} />}
-                    </Error>
+                    <InputGroup>
+                        <Label>Username
+                            <Input id="username" placeholder='Username' {...register('username', { required: true })} />
+                            <Error>
+                                {errors.username && errors.username.type === "required" && <span>This is required</span>}
+                                {errUser && <ErrorNotice message={errUser} />}
+                            </Error>
+                        </Label>
+                        <Label>Password
+                            <PasswordInput>
+                                <Input id="password" type={passShow ? 'text' : 'password'} placeholder='Password' {...register('password', { required: true, maxLength: 10, minLength: 4 })} />
+                                <VisibilityIcon
+                                    style={{ fontSize: '2vw', margin: '1vw', cursor: 'pointer' }}
+                                    onClick={() => setPassShow(!passShow)}
+                                />
+                            </PasswordInput>
+                            <Error>
+                                {errors.password && errors.password.type === "required" && <span>This is required</span>}
+                                {errors.password && errors.password.type === "maxLength" && <span>Max length exceeded</span>}
+                                {errors.password && errors.password.type === "minLength" && <span>Min length of 4 required</span>}
+                                {errPassword && <ErrorNotice message={errPassword} />}
+                            </Error>
+                        </Label>
+                    </InputGroup>
                     <Bottom>
                         <Button type='submit' >LOGIN</Button>
                         <Link to='/register'>

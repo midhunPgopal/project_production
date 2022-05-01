@@ -46,6 +46,7 @@ const Content = styled.div`
     flex-direction: row;
     margin: 1.2vw;
     padding: 1vw;
+    ${mobile({ flexDirection: 'column' })}
 `
 const End = styled.div`
     display: flex;
@@ -64,7 +65,6 @@ const Middle = styled.div`
     border: 0.5px solid lightgray;
     border-radius: 1vw;
     padding: 1.2vw;
-    ${mobile({ flexDirection: 'column' })}
 `
 const Address = styled.div`
     display: flex;

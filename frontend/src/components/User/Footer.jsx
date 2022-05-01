@@ -7,11 +7,11 @@ import LocationOnIcon from '@mui/icons-material/LocationOn'
 import PermPhoneMsgIcon from '@mui/icons-material/PermPhoneMsg'
 import EmailIcon from '@mui/icons-material/Email'
 import { Link } from 'react-router-dom';
-import { mobile } from "../../responsive"
 
 const Container = styled.div`
     display: flex;
-    background-color: #91cfad;  
+    flex-direction: row;
+    background-color: #91cfad;
 `
 const Left = styled.div`
     flex: 1;

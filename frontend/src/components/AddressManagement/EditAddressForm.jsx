@@ -3,7 +3,6 @@ import React from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import styled from 'styled-components'
-import { mobile } from '../../responsive'
 import { useSelector } from 'react-redux'
 import { toast } from 'react-toastify'
 

@@ -4,6 +4,7 @@ import ArrowLeftRoundedIcon from '@mui/icons-material/ArrowLeftRounded';
 import ArrowRightRoundedIcon from '@mui/icons-material/ArrowRightRounded';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import { mobile } from '../../responsive'
 
 const Container = styled.div`
     display: flex;
@@ -48,6 +49,7 @@ const Slide = styled.div`
 const ImgContainer = styled.div`
     height: 100%;
     flex: 2;
+    ${mobile({ display: 'none' })}
 `
 const Image = styled.img`
     width: 100%;
@@ -61,17 +63,20 @@ const InfoContainer = styled.div`
 `
 const Title = styled.h1`
     font-size: 4vw;
+    ${mobile({ fontSize: '5vw' })}
 `
 const Desc = styled.p`
     margin: 4vw 0px;
     font-size: 1.4vw;
     font-weight: 500;
     letter-spacing: 0.18vw;
+    ${mobile({ fontSize: '3vw', margin: '2vw' })}
 `
 const Offer = styled.p`
     margin: 4vw 0px;
     font-size: 1.6vw;
     font-weight: 600;
+    ${mobile({ fontSize: '3vw', margin: '1vw' })}
 `
 const Button = styled.button`
     padding: 0.6vw;
