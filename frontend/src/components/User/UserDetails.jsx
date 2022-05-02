@@ -188,7 +188,7 @@ function UserDetails() {
             const res = await axios.get('/api/userDetails/' + userId, { headers: { header } })
             const [userDetail] = res.data.dt
             setUserData(userDetail)
-            if (res.data.length > 0) {
+            if (res.data.dt.length > 0) {
                 setCheck(true)
             }
         } catch (error) {
