@@ -199,7 +199,7 @@ function UserDetails() {
         try {
             const res = await axios.get('/api/users/find/' + userId, { headers: { header } })
             setUserCredentials(res.data.dt)
-            setUsername(res.data.username)
+            setUsername(res.data.dt.username)
         } catch (error) {
             console.log(error);
         }
